@@ -4,8 +4,11 @@
 
 class PlainVanillaOption: public EuropeanOption {
 public:
+    /* Constructor and Destructor */
     PlainVanillaOption() {}
+    PlainVanillaOption(PlainVanillaOption& option);
     PlainVanillaOption(double strike, double maturity, OptionType type);
+
     virtual ~PlainVanillaOption() {};
     virtual double bsprice();
 

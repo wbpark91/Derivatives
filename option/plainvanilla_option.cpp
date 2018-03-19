@@ -8,6 +8,16 @@ PlainVanillaOption::PlainVanillaOption(double strike, double maturity, OptionTyp
     payoff_.reset(new PlainVanillaPayoff(strike, type));
 }
 
+PlainVanillaOption::PlainVanillaOption(PlainVanillaOption& option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        t_ = option.t_;
+        type_ = option.type_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+    }
+}
+
 double PlainVanillaOption::bsprice() {
     double d1 = getd1();
     double d2 = getd2();
