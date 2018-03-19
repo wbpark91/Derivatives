@@ -9,6 +9,10 @@ public:
     PlainVanillaOption(PlainVanillaOption& option);
     PlainVanillaOption(double strike, double maturity, OptionType type);
 
+    /* Assignment Operator */
+    PlainVanillaOption& operator=(PlainVanillaOption option);
+    PlainVanillaOption& operator=(const PlainVanillaOption& option);
+
     virtual ~PlainVanillaOption() {};
     virtual double bsprice();
 

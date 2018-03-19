@@ -3,11 +3,13 @@
 #include "plainvanilla_payoff.h"
 #include "normal.h"
 
+/* Constructor */
 PlainVanillaOption::PlainVanillaOption(double strike, double maturity, OptionType type)
         : EuropeanOption(strike, maturity, type) {
     payoff_.reset(new PlainVanillaPayoff(strike, type));
 }
 
+/* Copy constructor */
 PlainVanillaOption::PlainVanillaOption(PlainVanillaOption& option) {
     if (&option != this) {
         strike_ = option.strike_;
@@ -16,6 +18,31 @@ PlainVanillaOption::PlainVanillaOption(PlainVanillaOption& option) {
         this -> setMarketVariable(option.mktVar_);
         payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
     }
+}
+
+/* Assignment operator */
+PlainVanillaOption& PlainVanillaOption::operator= (PlainVanillaOption option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        t_ = option.t_;
+        type_ = option.type_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+    }
+
+    return *this;
+}
+
+PlainVanillaOption& PlainVanillaOption::operator= (const PlainVanillaOption& option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        t_ = option.t_;
+        type_ = option.type_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+    }
+
+    return *this;
 }
 
 double PlainVanillaOption::bsprice() {
