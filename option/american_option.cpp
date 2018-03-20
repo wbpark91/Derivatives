@@ -5,11 +5,47 @@
 #include <cmath>
 #include <iostream>
 
+/* Constructor */
 AmericanOption::AmericanOption(double strike, double maturity, OptionType type)
     :Option(strike, maturity, type) {
     payoff_.reset(new PlainVanillaPayoff(strike, type));
 }
 
+/* Copy Constructor */
+AmericanOption::AmericanOption(AmericanOption& option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        t_ = option.t_;
+        type_ = option.type_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+    }
+}
+
+/* Assignment operators */
+AmericanOption& AmericanOption::operator= (AmericanOption option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        t_ = option.t_;
+        type_ = option.type_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+    }
+    return *this;
+}
+
+AmericanOption& AmericanOption::operator= (const AmericanOption& option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        t_ = option.t_;
+        type_ = option.type_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+    }
+    return *this;
+}
+
+/* Evaluate price by using binomial tree */
 double AmericanOption::bntprice(unsigned int steps, BinomialType bntType) {
     std::vector<double> tree;
     if (bntType == BD) {                    /* Broadie and Detemple Method */
