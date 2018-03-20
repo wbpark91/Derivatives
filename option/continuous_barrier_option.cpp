@@ -2,10 +2,54 @@
 #include <cmath>
 #include "normal.h"
 
+/* Constructor */
 ContinuousBarrierOption::ContinuousBarrierOption(double strike, double barrier,
                 double maturity, OptionType type, BarrierFeature barrierFeature)
                 :BarrierOption(strike, barrier, maturity, type, barrierFeature)
                 {}
+
+/* Copy Constructor */
+ContinuousBarrierOption::ContinuousBarrierOption(ContinuousBarrierOption& option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        barrier_ = option.barrier_;
+        t_ = option.t_;
+        type_ = option.type_;
+        barrierFeature_ = option.barrierFeature_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
+                                        option.type_, option.barrierFeature_));
+    }
+}
+
+/* Assignment operators */
+ContinuousBarrierOption& ContinuousBarrierOption::operator= (ContinuousBarrierOption option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        barrier_ = option.barrier_;
+        t_ = option.t_;
+        type_ = option.type_;
+        barrierFeature_ = option.barrierFeature_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
+                                        option.type_, option.barrierFeature_));
+    }
+    return *this;
+}
+
+ContinuousBarrierOption& ContinuousBarrierOption::operator= (const ContinuousBarrierOption& option) {
+    if (&option != this) {
+        strike_ = option.strike_;
+        barrier_ = option.barrier_;
+        t_ = option.t_;
+        type_ = option.type_;
+        barrierFeature_ = option.barrierFeature_;
+        this -> setMarketVariable(option.mktVar_);
+        payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
+                                        option.type_, option.barrierFeature_));
+    }
+    return *this;
+}
 
 /* Only for Down and Out Call */
 double ContinuousBarrierOption::bsprice() {
