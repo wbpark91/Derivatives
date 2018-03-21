@@ -28,6 +28,9 @@ protected:
 
     /* Internal functions */
     virtual std::vector<double> makeTree(unsigned int steps, BinomialType bntType);
+
+    /* Swap function */
+    void Swap(Derivative* lhs, Derivative* rhs);
 };
 
 #endif

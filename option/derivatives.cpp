@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "derivatives.h"
 #include <cmath>
 
@@ -43,4 +44,17 @@ std::vector<double> Derivative::makeTree(unsigned int steps, BinomialType bntTyp
     }
 
     return tree;
+}
+
+void Derivative::Swap(Derivative* lhs, Derivative* rhs) {
+    /* MarketVariable Swap */
+    std::swap(lhs -> mktVar_, rhs -> mktVar_);
+    std::swap(lhs -> s_, rhs -> s_);
+    std::swap(lhs -> r_, rhs -> r_);
+    std::swap(lhs -> div_, rhs -> div_);
+    std::swap(lhs -> sigma_, rhs -> sigma_);
+
+    /* Derivative Feature Swap */
+    std::swap(lhs -> t_, rhs -> t_);
+    std::swap(lhs -> payoff_, rhs -> payoff_);
 }
