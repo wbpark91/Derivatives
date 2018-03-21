@@ -7,10 +7,11 @@ public:
     /* Constructor and Destructor */
     PlainVanillaOption() {}
     PlainVanillaOption(PlainVanillaOption& option);
+    PlainVanillaOption(const PlainVanillaOption& option);
     PlainVanillaOption(double strike, double maturity, OptionType type);
 
     /* Assignment Operator */
-    PlainVanillaOption& operator=(PlainVanillaOption option);
+    PlainVanillaOption& operator=(PlainVanillaOption& option);
     PlainVanillaOption& operator=(const PlainVanillaOption& option);
 
     virtual ~PlainVanillaOption() {};
@@ -18,6 +19,7 @@ public:
 
     virtual double delta();
 private:
+    void Swap(PlainVanillaOption& lhs, PlainVanillaOption& rhs);
 };
 
 #endif
