@@ -4,6 +4,7 @@
 #include "u_math.h"
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 /* Constructor */
 AmericanOption::AmericanOption(double strike, double maturity, OptionType type)
@@ -20,7 +21,7 @@ AmericanOption::AmericanOption(AmericanOption& option) {
     payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
 }
 
-AmericanOption::AmericanOption(const AmricanOption& option) {
+AmericanOption::AmericanOption(const AmericanOption& option) {
     strike_ = option.strike_;
     t_ = option.t_;
     type_ = option.type_;
@@ -30,24 +31,14 @@ AmericanOption::AmericanOption(const AmricanOption& option) {
 
 /* Assignment operators */
 AmericanOption& AmericanOption::operator= (AmericanOption& option) {
-    if (&option != this) {
-        strike_ = option.strike_;
-        t_ = option.t_;
-        type_ = option.type_;
-        this -> setMarketVariable(option.mktVar_);
-        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
-    }
+    AmericanOption copy(option);
+    Swap(*this, copy);
     return *this;
 }
 
 AmericanOption& AmericanOption::operator= (const AmericanOption& option) {
-    if (&option != this) {
-        strike_ = option.strike_;
-        t_ = option.t_;
-        type_ = option.type_;
-        this -> setMarketVariable(option.mktVar_);
-        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
-    }
+    AmericanOption copy(option);
+    Swap(*this, copy);
     return *this;
 }
 
@@ -133,4 +124,20 @@ std::vector<double> AmericanOption::exerciseBound(unsigned int steps, BinomialTy
         }
     }
     return bound;
+}
+
+/* Swap function */
+void AmericanOption::Swap(AmericanOption& lhs, AmericanOption& rhs) {
+    /* Option properties swap */
+    std::swap(lhs.strike_, rhs.strike_);
+    std::swap(lhs.t_, rhs.t_);
+    std::swap(lhs.type_, rhs.type_);
+    std::swap(lhs.payoff_, rhs.payoff_);
+
+    /* Market Variable swap */
+    std::swap(lhs.mktVar_, rhs.mktVar_);
+    std::swap(lhs.s_, rhs.s_);
+    std::swap(lhs.r_, rhs.r_);
+    std::swap(lhs.div_, rhs.div_);
+    std::swap(lhs.sigma_, rhs.sigma_);
 }

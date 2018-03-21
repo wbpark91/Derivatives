@@ -11,7 +11,7 @@ public:
     AmericanOption() {}
     AmericanOption(double strike, double maturity, OptionType type);
     AmericanOption(AmericanOption& option);
-    AmericanOption(const AmericanOption& option)
+    AmericanOption(const AmericanOption& option);
     ~AmericanOption() {}
 
     /* Assignment operator */
@@ -24,6 +24,7 @@ public:
     std::vector<double> exerciseBound(unsigned int steps, BinomialType bntType);
 private:
     std::vector< std::vector<ExerDummy> > exerTree_;
+    void Swap(AmericanOption& lhs, AmericanOption& rhs);
 };
 
 #endif
