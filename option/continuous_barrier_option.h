@@ -10,14 +10,16 @@ public:
     ContinuousBarrierOption(double strike, double barrier, double maturity, OptionType type,
                     BarrierFeature barrierFeature);
     ContinuousBarrierOption(ContinuousBarrierOption& option);
+    ContinuousBarrierOption(const ContinuousBarrierOption& option);
     ~ContinuousBarrierOption() {}
 
     /* Assignment operators */
-    ContinuousBarrierOption& operator= (ContinuousBarrierOption option);
+    ContinuousBarrierOption& operator= (ContinuousBarrierOption& option);
     ContinuousBarrierOption& operator= (const ContinuousBarrierOption& option);
 
     virtual double bntprice(unsigned int steps, BinomialType bntType);
     virtual double bsprice();
 private:
+    void Swap(ContinuousBarrierOption& lhs, ContinuousBarrierOption& rhs);
 };
 #endif

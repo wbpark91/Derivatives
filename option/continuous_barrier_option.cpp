@@ -10,45 +10,42 @@ ContinuousBarrierOption::ContinuousBarrierOption(double strike, double barrier,
 
 /* Copy Constructor */
 ContinuousBarrierOption::ContinuousBarrierOption(ContinuousBarrierOption& option) {
-    if (&option != this) {
-        strike_ = option.strike_;
-        barrier_ = option.barrier_;
-        t_ = option.t_;
-        type_ = option.type_;
-        barrierFeature_ = option.barrierFeature_;
-        this -> setMarketVariable(option.mktVar_);
-        payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
-                                        option.type_, option.barrierFeature_));
-    }
+    strike_ = option.strike_;
+    barrier_ = option.barrier_;
+    t_ = option.t_;
+    type_ = option.type_;
+    barrierFeature_ = option.barrierFeature_;
+    this -> setMarketVariable(option.mktVar_);
+    payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
+                                    option.type_, option.barrierFeature_));
+}
+
+ContinuousBarrierOption::ContinuousBarrierOption(const ContinuousBarrierOption& option) {
+    strike_ = option.strike_;
+    barrier_ = option.barrier_;
+    t_ = option.t_;
+    type_ = option.type_;
+    barrierFeature_ = option.barrierFeature_;
+    this -> setMarketVariable(option.mktVar_);
+    payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
+                                    option.type_, option.barrierFeature_));
 }
 
 /* Assignment operators */
-ContinuousBarrierOption& ContinuousBarrierOption::operator= (ContinuousBarrierOption option) {
-    if (&option != this) {
-        strike_ = option.strike_;
-        barrier_ = option.barrier_;
-        t_ = option.t_;
-        type_ = option.type_;
-        barrierFeature_ = option.barrierFeature_;
-        this -> setMarketVariable(option.mktVar_);
-        payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
-                                        option.type_, option.barrierFeature_));
-    }
+ContinuousBarrierOption& ContinuousBarrierOption::operator= (ContinuousBarrierOption& option) {
+    ContinuousBarrierOption copy(option);
+    Swap(*this, copy);
     return *this;
 }
 
 ContinuousBarrierOption& ContinuousBarrierOption::operator= (const ContinuousBarrierOption& option) {
-    if (&option != this) {
-        strike_ = option.strike_;
-        barrier_ = option.barrier_;
-        t_ = option.t_;
-        type_ = option.type_;
-        barrierFeature_ = option.barrierFeature_;
-        this -> setMarketVariable(option.mktVar_);
-        payoff_.reset(new BarrierPayoff(option.strike_, option.barrier_,
-                                        option.type_, option.barrierFeature_));
-    }
+    ContinuousBarrierOption copy(option);
+    Swap(*this, copy);
     return *this;
+}
+
+void ContinuousBarrierOption::Swap(ContinuousBarrierOption& lhs, ContinuousBarrierOption& rhs) {
+    BarrierOption::Swap(&lhs, &rhs);
 }
 
 /* Only for Down and Out Call */
