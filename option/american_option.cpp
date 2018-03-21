@@ -128,9 +128,5 @@ std::vector<double> AmericanOption::exerciseBound(unsigned int steps, BinomialTy
 
 /* Swap function */
 void AmericanOption::Swap(AmericanOption& lhs, AmericanOption& rhs) {
-    Derivative::Swap(&lhs, &rhs);
-
-    /* Option properties swap */
-    std::swap(lhs.strike_, rhs.strike_);
-    std::swap(lhs.type_, rhs.type_);
+    Option::Swap(&lhs, &rhs);
 }

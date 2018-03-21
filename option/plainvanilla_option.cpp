@@ -58,9 +58,5 @@ double PlainVanillaOption::delta() {
 
 /* Swap function */
 void PlainVanillaOption::Swap(PlainVanillaOption& lhs, PlainVanillaOption& rhs) {
-    Derivative::Swap(&lhs, &rhs);
-
-    /* Option properties swap */
-    std::swap(lhs.strike_, rhs.strike_);
-    std::swap(lhs.type_, rhs.type_);
+    Option::Swap(&lhs, &rhs);
 }
