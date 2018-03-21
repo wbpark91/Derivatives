@@ -11,10 +11,11 @@ public:
     AmericanOption() {}
     AmericanOption(double strike, double maturity, OptionType type);
     AmericanOption(AmericanOption& option);
+    AmericanOption(const AmericanOption& option)
     ~AmericanOption() {}
 
     /* Assignment operator */
-    AmericanOption& operator= (AmericanOption option);
+    AmericanOption& operator= (AmericanOption& option);
     AmericanOption& operator= (const AmericanOption& option);
 
     virtual double bntprice(unsigned int steps, BinomialType bntType);

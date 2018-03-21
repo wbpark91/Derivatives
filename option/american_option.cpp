@@ -11,19 +11,25 @@ AmericanOption::AmericanOption(double strike, double maturity, OptionType type)
     payoff_.reset(new PlainVanillaPayoff(strike, type));
 }
 
-/* Copy Constructor */
+/* Copy Constructors */
 AmericanOption::AmericanOption(AmericanOption& option) {
-    if (&option != this) {
-        strike_ = option.strike_;
-        t_ = option.t_;
-        type_ = option.type_;
-        this -> setMarketVariable(option.mktVar_);
-        payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
-    }
+    strike_ = option.strike_;
+    t_ = option.t_;
+    type_ = option.type_;
+    this -> setMarketVariable(option.mktVar_);
+    payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+}
+
+AmericanOption::AmericanOption(const AmricanOption& option) {
+    strike_ = option.strike_;
+    t_ = option.t_;
+    type_ = option.type_;
+    this -> setMarketVariable(option.mktVar_);
+    payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
 }
 
 /* Assignment operators */
-AmericanOption& AmericanOption::operator= (AmericanOption option) {
+AmericanOption& AmericanOption::operator= (AmericanOption& option) {
     if (&option != this) {
         strike_ = option.strike_;
         t_ = option.t_;
