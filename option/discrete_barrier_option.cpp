@@ -2,7 +2,9 @@
 #include "plainvanilla_payoff.h"
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
+/* Constructor */
 DiscreteBarrierOption::DiscreteBarrierOption(double strike, double barrier,
                     double maturity, OptionType type, std::vector<double> date,
                     BarrierFeature barrierFeature)
@@ -13,6 +15,49 @@ DiscreteBarrierOption::DiscreteBarrierOption(double strike, double barrier,
                         /* sort barrierdate to descending order to use for binomial tree */
                         std::sort(barrierDate_.rbegin(), barrierDate_.rend());
                     }
+
+/* Copy Constructors */
+DiscreteBarrierOption::DiscreteBarrierOption(DiscreteBarrierOption& option) {
+    strike_ = option.strike_;
+    barrier_ = option.barrier_;
+    t_ = option.t_;
+    type_ = option.type_;
+    barrierFeature_ = option.barrierFeature_;
+    barrierDate_ = option.barrierDate_;
+    payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+
+    this -> setMarketVariable(option.mktVar_);
+}
+
+DiscreteBarrierOption::DiscreteBarrierOption(const DiscreteBarrierOption& option) {
+    strike_ = option.strike_;
+    barrier_ = option.barrier_;
+    t_ = option.t_;
+    type_ = option.type_;
+    barrierFeature_ = option.barrierFeature_;
+    barrierDate_ = option.barrierDate_;
+    payoff_.reset(new PlainVanillaPayoff(option.strike_, option.type_));
+
+    this -> setMarketVariable(option.mktVar_);
+}
+
+/* Assignment operator */
+DiscreteBarrierOption& DiscreteBarrierOption::operator= (DiscreteBarrierOption& option) {
+    DiscreteBarrierOption copy(option);
+    Swap(*this, copy);
+    return *this;
+}
+
+DiscreteBarrierOption& DiscreteBarrierOption::operator= (const DiscreteBarrierOption& option) {
+    DiscreteBarrierOption copy(option);
+    Swap(*this, copy);
+    return *this;
+}
+
+void DiscreteBarrierOption::Swap(DiscreteBarrierOption& lhs, DiscreteBarrierOption& rhs) {
+    BarrierOption::Swap(&lhs, &rhs);
+    std::swap(lhs.barrierDate_, rhs.barrierDate_);
+}
 
 double DiscreteBarrierOption::bntprice(unsigned int steps, BinomialType bntType) {
     std::vector<double> tree = makeTree(steps, bntType);
