@@ -18,6 +18,8 @@ protected:
     double barrier_;
     double geth1() const;
     double geth2() const;
+
+    void Swap(BarrierOption* lhs, BarrierOption* rhs);
 };
 
 #endif
