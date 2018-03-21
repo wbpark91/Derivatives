@@ -37,6 +37,9 @@ protected:
     double getd2();
     double h(double x, double n);
     virtual std::vector<double> makeTree(unsigned int steps, BinomialType bntType);
+
+    /* Swap function */
+    void Swap(Option* lhs, Option* rhs);
 };
 
 #endif

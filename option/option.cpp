@@ -8,6 +8,14 @@ Option::Option(double strike, double maturity, OptionType type)
 
 Option::~Option() {}
 
+void Option::Swap(Option* lhs, Option* rhs) {
+    Derivative::Swap(lhs, rhs);
+
+    /* Option properties swap */
+    std::swap(lhs -> strike_, rhs -> strike_);
+    std::swap(lhs -> type_, rhs -> type_);
+}
+
 std::vector<double> Option::makeTree(unsigned int steps, BinomialType bntType) {
     dt_ = t_ / steps;
     double q1;
