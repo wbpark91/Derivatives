@@ -12,15 +12,17 @@ public:
     ~Mesh();
 
     /* operator overloading */
-    double& operator[][] (unsigned int j, unsigned int i);
+    std::vector<double>& operator[] (unsigned int j);
 
     /* Find a certain value at a specified time index */
     int findIndex(double value, unsigned int timeindex);
 
+    void print();
     // void setBoundary(Payoff* payoff);
 private:
     double mLower, mUpper, mMaturity;
     unsigned int mImax, mJmax;
+    double mPriceStep, mTimeStep;
     std::vector<std::vector<double>> mGrid;
 };
 #endif
