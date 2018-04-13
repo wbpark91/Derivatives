@@ -1,6 +1,7 @@
 #ifndef _PLAINVANILLA_OPTION_H_
 #define _PLAINVANILLA_OPTION_H_
 #include "european_option.h"
+#include "mesh.h"
 
 class PlainVanillaOption: public EuropeanOption {
 public:
@@ -16,10 +17,13 @@ public:
 
     virtual ~PlainVanillaOption() {};
     virtual double bsprice();
+    double fdmprice(unsigned int imax, unsigned int jmax, FDMType fdmtype,
+                    double upper, double lower = 0.0);
 
     virtual double delta();
 private:
     void Swap(PlainVanillaOption& lhs, PlainVanillaOption& rhs);
+    void setBoundary(Mesh& mesh);
 };
 
 #endif

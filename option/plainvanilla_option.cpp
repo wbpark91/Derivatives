@@ -3,6 +3,7 @@
 #include "plainvanilla_option.h"
 #include "plainvanilla_payoff.h"
 #include "normal.h"
+#include "explicit_fdm.h"
 
 /* Constructor */
 PlainVanillaOption::PlainVanillaOption(double strike, double maturity, OptionType type)
@@ -55,6 +56,41 @@ double PlainVanillaOption::delta() {
     return type_ * normcdf(type_ * getd1());
 }
 
+/* fdm price */
+double PlainVanillaOption::fdmprice(unsigned int imax, unsigned int jmax, FDMType fdmtype,
+                double upper, double lower) {
+    if (fdmtype == Exp) {
+        mFDMEngine.reset(new ExplicitFDM(s_, t_, imax, jmax, upper ,lower));
+    }
+    setBoundary(mFDMEngine -> getMesh());
+    mFDMEngine -> boundarySet();
+
+    mFDMEngine -> setFirst(r_ - div_);
+    mFDMEngine -> setSecond(sigma_);
+    mFDMEngine -> setR(r_);
+
+    mFDMEngine -> calcPrice();
+
+    return mFDMEngine -> getMesh()[mFDMEngine -> getSpotIdx()][0];
+}
+
+/* Boundary setting */
+void PlainVanillaOption::setBoundary(Mesh& mesh) {
+    int imax = mesh.getImax();
+    int jmax = mesh.getJmax();
+    double dt = mesh.getdt();
+
+    /* upper and lower boundary */
+    for (int i = 0; i < imax; ++i) {
+        mesh[0][i] = 0.0;
+        mesh[jmax][i] = mesh[jmax][i] - strike_ * exp(-r_ * (t_ - i * dt));
+    }
+
+    /* at maturity */
+    for (int j = 0; j <= jmax; ++j) {
+        mesh[j][imax] = (*payoff_)(mesh[j][imax]);
+    }
+}
 
 /* Swap function */
 void PlainVanillaOption::Swap(PlainVanillaOption& lhs, PlainVanillaOption& rhs) {
