@@ -17,9 +17,10 @@ public:
     /* Find a certain value at a specified time index */
     int findIndex(double value, unsigned int timeindex);
 
+    /* print mesh */
     void print();
 
-    /* get upper-spot index and maturity index */
+    /* get imax and jmax */
     int getImax();
     int getJmax();
 
