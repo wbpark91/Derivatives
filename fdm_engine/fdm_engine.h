@@ -18,15 +18,14 @@ public:
     void boundarySet();
 
     /* set functions */
-    void setA(double a);
-    void setB(double b);
-    void setC(double c);
+    void setFirst(double first);
+    void setSecond(double second);
     void setR(double r);
 protected:
     Mesh mMesh;
 
     /* parameters */
-    double a_, b_, c_;
+    double first_, second_; // coefficient of first and second derivative
     double r_;
     double dt_;
 
@@ -41,7 +40,7 @@ protected:
     bool mBoundary;
 
     /* calculate value at (i, j) */
-    virtual void value(int i, int j) = 0;
+    virtual void value(int j, int i) = 0;
 };
 
 #endif

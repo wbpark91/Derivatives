@@ -22,7 +22,6 @@ void FDMEngine::boundarySet() {
 }
 
 /* set functions */
-void FDMEngine::setA(double a) { a_ = a; }
-void FDMEngine::setB(double b) { b_ = b; }
-void FDMEngine::setC(double c) { c_ = c; }
+void FDMEngine::setFirst(double first) { first_ = first; }
+void FDMEngine::setSecond(double second) { second_ = second; }
 void FDMEngine::setR(double r) { r_ = r; }
