@@ -20,9 +20,11 @@ public:
     /* print mesh */
     void print();
 
-    /* get imax and jmax */
-    int getImax();
-    int getJmax();
+    /* get imax, jmax, dt, ds */
+    int getImax() const;
+    int getJmax() const;
+    double getdt() const;
+    double getds() const;
 
 private:
     double mLower, mUpper, mMaturity;

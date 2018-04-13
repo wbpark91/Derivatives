@@ -36,12 +36,21 @@ int Mesh::findIndex(double value, unsigned int timeindex) {
     return -1;
 }
 
-int Mesh::getImax() {
+/* get functions */
+int Mesh::getImax() const {
     return mImax;
 }
 
-int Mesh::getJmax() {
+int Mesh::getJmax() const {
     return mJmax;
+}
+
+double Mesh::getdt() const {
+    return mTimeStep;
+}
+
+double Mesh::getds() const {
+    return mPriceStep;
 }
 
 void Mesh::print() {
