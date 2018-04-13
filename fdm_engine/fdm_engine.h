@@ -1,5 +1,6 @@
 #ifndef _FDM_ENGINE_H_
 #define _FDM_ENGINE_H_
+#include "mesh.h"
 
 class FDMEngine {
 public:
