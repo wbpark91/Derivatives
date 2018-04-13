@@ -28,6 +28,7 @@ protected:
     double first_, second_; // coefficient of first and second derivative
     double r_;
     double dt_;
+    double a_, b_, c_;
 
     /* market variables */
     double mSpot, mMaturity;
