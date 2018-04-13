@@ -21,7 +21,7 @@ public:
     void setB(double b);
     void setC(double c);
     void setR(double r);
-private:
+protected:
     Mesh mMesh;
 
     /* parameters */
