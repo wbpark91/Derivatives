@@ -6,6 +6,7 @@
 #include <memory>
 
 enum BinomialType { CRR, RB, LR, BD };
+enum FDMType { Exp, CN };
 
 class Derivative {
 public:
