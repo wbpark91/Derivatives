@@ -10,10 +10,7 @@ public:
                 double upper, double lower = 0.0);
     ~FDMEngine();
 
-    /* calculate value at (i, j) */
-    virtual void value(int i, int j) = 0;
-
-    /* calculate price by using EFDM */
+    /* calculate price by using FDM */
     virtual void calcPrice() = 0;
 
     /* set mBoundary = true if boundary is set up */
@@ -41,6 +38,9 @@ private:
 
     /* Boundary set-up boolean */
     bool mBoundary;
+
+    /* calculate value at (i, j) */
+    virtual void value(int i, int j) = 0;
 };
 
 #endif
