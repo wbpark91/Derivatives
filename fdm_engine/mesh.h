@@ -30,6 +30,6 @@ private:
     double mLower, mUpper, mMaturity;
     unsigned int mImax, mJmax;
     double mPriceStep, mTimeStep;
-    std::vector<std::vector<double>> mGrid;
+    std::vector< std::vector<double> > mGrid;
 };
 #endif
