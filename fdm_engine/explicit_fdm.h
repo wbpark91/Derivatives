@@ -14,8 +14,11 @@ public:
     /* calculate price by using EFDM */
     virtual void calcPrice();
 private:
-    /* calculate value at (i, j) */
-    virtual void value(int i, int j);
+    /* calculate value at (j, i) */
+    virtual void value(int j, int i);
+    void calcA(int j);
+    void calcB(int j);
+    void calcC(int j);
 };
 
 #endif
