@@ -1,6 +1,7 @@
 #ifndef _DERIVATIVES_H_
 #define _DERIVATIVES_H_
 #include "marketvariable.h"
+#include "fdm_engine.h"
 #include "payoff.h"
 #include <vector>
 #include <memory>
@@ -26,6 +27,9 @@ protected:
 
     /* Binomial Tree Paramaters */
     double u_, d_, q_, dt_;
+
+    /* FDM Engine */
+    std::unique_ptr<FDMEngine> mFDMEngine;
 
     /* Internal functions */
     virtual std::vector<double> makeTree(unsigned int steps, BinomialType bntType);
