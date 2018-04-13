@@ -8,6 +8,7 @@
 
 enum BinomialType { CRR, RB, LR, BD };
 enum FDMType { Exp, CN };
+enum CpnFreq { Month = 12, Quarter = 4, SemiAnnual = 2, Annual = 1 };
 
 class Derivative {
 public:
