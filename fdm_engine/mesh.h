@@ -18,7 +18,11 @@ public:
     int findIndex(double value, unsigned int timeindex);
 
     void print();
-    // void setBoundary(Payoff* payoff);
+
+    /* get upper-spot index and maturity index */
+    int getImax();
+    int getJmax();
+
 private:
     double mLower, mUpper, mMaturity;
     unsigned int mImax, mJmax;

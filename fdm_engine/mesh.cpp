@@ -36,6 +36,14 @@ int Mesh::findIndex(double value, unsigned int timeindex) {
     return -1;
 }
 
+int Mesh::getImax() {
+    return mImax;
+}
+
+int Mesh::getJmax() {
+    return mJmax;
+}
+
 void Mesh::print() {
     std::cout << "  ";
     for (int i = 0; i < mGrid[0].size(); ++i) {
