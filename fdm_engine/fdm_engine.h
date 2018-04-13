@@ -27,8 +27,10 @@ protected:
     /* parameters */
     double first_, second_; // coefficient of first and second derivative
     double r_;
-    double dt_;
-    double a_, b_, c_;
+    double dt_, ds_;
+
+    /* index of current spot */
+    int spotIdx;
 
     /* market variables */
     double mSpot, mMaturity;
@@ -39,6 +41,9 @@ protected:
 
     /* Boundary set-up boolean */
     bool mBoundary;
+
+    /* Price calculated boolean */
+    bool mCalc;
 
     /* calculate value at (i, j) */
     virtual void value(int j, int i) = 0;
