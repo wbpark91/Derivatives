@@ -16,9 +16,6 @@ public:
 private:
     /* calculate value at (j, i) */
     virtual void value(int j, int i);
-    void calcA(int j);
-    void calcB(int j);
-    void calcC(int j);
 };
 
 #endif
