@@ -23,6 +23,7 @@ public:
     void setA(double a);
     void setB(double b);
     void setC(double c);
+    void setR(double r);
 private:
     Mesh mMesh;
 
