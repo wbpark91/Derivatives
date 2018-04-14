@@ -15,7 +15,7 @@ public:
     std::vector<double>& operator[] (unsigned int j);
 
     /* Find a certain value at a specified time index */
-    int findIndex(double value, unsigned int timeindex);
+    int findIndex(double value, unsigned int timeindex = 0);
 
     /* print mesh */
     void print();
