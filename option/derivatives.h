@@ -29,9 +29,6 @@ protected:
     /* Binomial Tree Paramaters */
     double u_, d_, q_, dt_;
 
-    /* FDM Engine */
-    FDMEngine* mFDMEngine;
-
     /* Internal functions */
     virtual std::vector<double> makeTree(unsigned int steps, BinomialType bntType);
 
