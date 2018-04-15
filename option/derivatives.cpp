@@ -8,6 +8,8 @@ Derivative::Derivative() {}
 Derivative::Derivative(double maturity): t_(maturity) {}
 
 Derivative::~Derivative() {
+    if (mFDMEngine != NULL)
+        delete mFDMEngine;
 }
 
 void Derivative::setMarketVariable(MarketVariable mktVar) {

@@ -30,7 +30,7 @@ protected:
     double u_, d_, q_, dt_;
 
     /* FDM Engine */
-    std::unique_ptr<FDMEngine> mFDMEngine;
+    FDMEngine* mFDMEngine;
 
     /* Internal functions */
     virtual std::vector<double> makeTree(unsigned int steps, BinomialType bntType);
