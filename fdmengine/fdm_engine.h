@@ -9,7 +9,7 @@ public:
     FDMEngine(double spot, double maturity,
                 unsigned int imax, unsigned int jmax,
                 double upper, double lower = 0.0);
-    ~FDMEngine();
+    virtual ~FDMEngine();
 
     /* calculate price by using FDM */
     virtual void calcPrice() = 0;
