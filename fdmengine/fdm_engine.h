@@ -13,6 +13,8 @@ public:
 
     /* calculate price by using FDM */
     virtual void calcPrice() = 0;
+    double delta();
+    double gamma();
 
     /* set mBoundary = true if boundary is set up */
     void boundarySet();
@@ -21,7 +23,8 @@ public:
     void setFirst(double first);
     void setSecond(double second);
     void setR(double r);
-
+    virtual void setCpnIdx(std::vector<double> cpnSchedule) { }
+    virtual void setCoupon(double coupon) { }
     /* get functions */
     Mesh& getMesh();
     Mesh getMesh() const;
@@ -50,9 +53,6 @@ protected:
 
     /* Price calculated boolean */
     bool mCalc;
-
-    /* calculate value at (i, j) */
-    virtual void value(int j, int i) = 0;
 };
 
 #endif

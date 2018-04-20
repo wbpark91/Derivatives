@@ -26,6 +26,28 @@ FDMEngine::FDMEngine(double spot, double maturity,
     }
 }
 
+double FDMEngine::delta() {
+    if (mCalc != true) {
+        calcPrice();
+    }
+
+    double upper = mMesh[mSpotIdx + 1][0];
+    double lower = mMesh[mSpotIdx - 1][0];
+
+    return (upper - lower) / (2 * ds_);
+}
+
+double FDMEngine::gamma() {
+    if (mCalc != true) {
+        calcPrice();
+    }
+
+    double upper = mMesh[mSpotIdx + 1][0];
+    double lower = mMesh[mSpotIdx - 1][0];
+
+    return (upper - 2 * mMesh[mSpotIdx][0] + lower) / (ds_ * ds_);
+}
+
 void FDMEngine::boundarySet() {
     mBoundary = true;
 }
