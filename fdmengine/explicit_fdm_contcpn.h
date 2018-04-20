@@ -16,7 +16,7 @@ public:
     virtual void calcPrice();
 
     /* set functions */
-    void setCpnIdx(std::vector<unsigned int> cpnIdx);
+    void setCpnIdx(std::vector<double> cpnSchedule);
     void setCoupon(double coupon);
 private:
     double mBarrier;
