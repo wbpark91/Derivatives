@@ -13,9 +13,9 @@ public:
 
     /* calculate price by using EFDM */
     virtual void calcPrice();
-private:
+protected:
     /* calculate value at (j, i) */
-    virtual void value(int j, int i);
+    void value(int j, int i);
 };
 
 #endif
