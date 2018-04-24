@@ -152,6 +152,22 @@ Matrix<T> Matrix<T>::transpose() {
   return result;
 }
 
+// Check if two matrix is equal
+template<typename T>
+bool Matrix<T>::operator==(const Matrix<T>& rhs) {
+    if ((rows != rhs.get_rows()) || cols != rhs.get_cols())
+        return false;
+
+    for (unsigned i = 0; i < rows; i++) {
+        for (unsigned j = 0; j < cols; j++) {
+            if (this -> mat[i][j] != rhs(i, j))
+                return false;
+        }
+    }
+
+    return true;
+}
+
 // Matrix/scalar addition
 template<typename T>
 Matrix<T> Matrix<T>::operator+(const T& rhs) {

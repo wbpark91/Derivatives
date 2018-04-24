@@ -25,6 +25,7 @@ template <typename T> class Matrix {
   Matrix<T> operator*(const Matrix<T>& rhs);
   Matrix<T>& operator*=(const Matrix<T>& rhs);
   Matrix<T> transpose();
+  bool operator==(const Matrix<T>& rhs);
 
   // Matrix/scalar operations
   Matrix<T> operator+(const T& rhs);
