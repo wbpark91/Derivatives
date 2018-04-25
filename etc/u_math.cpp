@@ -1,3 +1,6 @@
+#ifndef _U_MATH_CPP_
+#define _U_MATH_CPP_
+
 #include "u_math.h"
 #include <iostream>
 #include <numeric>
@@ -31,3 +34,6 @@ double stdev(std::vector<double> vec) {
     }
     return sqrt(result / vec.size());
 }
+
+
+#endif
