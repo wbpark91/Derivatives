@@ -24,6 +24,10 @@ public:
     void setRate(double r) { r_ = r; }
     void setDiv(double dividend) { div_ = dividend; }
     void setVol(double sigma) { sigma_ = sigma; }
+
+    /* Print information */
+    void print() const;
+
 private:
     double spot_, r_, div_, sigma_;
 };
