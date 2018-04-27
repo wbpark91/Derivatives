@@ -1,11 +1,16 @@
 #ifndef _MARKETVARIABLE_H_
 #define _MARKETVARIABLE_H_
+#include "forex.h"
 
 class MarketVariable {
 public:
     MarketVariable() {}
     MarketVariable(double spot, double r, double dividend, double sigma)
         :spot_(spot), r_(r), div_(dividend), sigma_(sigma) {}
+
+    /* Foreign underlying asset: needs quanto adjustment */
+    MarketVariable(double spot, Forex forex, double dividend,
+        double sigma, double corr);
     ~MarketVariable() {}
 
     /* Get Function */
