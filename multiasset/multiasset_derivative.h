@@ -4,8 +4,8 @@
 #include "martix.h"
 #include "marketvariable.h"
 
-enum DerivativeFeature { European, American, ContBarrier, DiscBarrier
-    Autocall, Callable };
+enum DerivativeFeature { EUROPEAN, AMERICAN, CONTBARRIER, DISCBARRIER
+    AUTOCALL, CALLABLE };
 
 /* MultiAssetDerivative class */
 class MADerivative {
@@ -20,7 +20,7 @@ public:
 
     /* Print current information */
     virtual void print() const;
-private:
+protected:
     std::vector<MarketVariable> mMktVar;
     double mMaturity;
     Matrix mCov;
