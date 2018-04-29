@@ -3,6 +3,7 @@
 #include <random>
 #include <cmath>
 #include "matrix.h"
+#include <iostream>
 
 MAAutoCall::MAAutoCall() { }
 
@@ -10,7 +11,6 @@ MAAutoCall::MAAutoCall(double maturity, double trigger,
     std::vector<double> ACSchedule, unsigned int numAsset)
     :MADerivative(maturity, numAsset), mTrigger(trigger),
         mACSchedule(ACSchedule) {
-    mPayoff = new MAACPayoff(trigger, maturity, ACSchedule);
     mFeature = AUTOCALL;
 }
 
@@ -18,12 +18,12 @@ MAAutoCall::~MAAutoCall() {
     delete mPayoff;
 }
 
-std::pair<double> mcPrice(unsigned int numPath) {
+std::pair<double, double> MAAutoCall::mcPrice(unsigned int numPath) {
     /* Simulation result vector */
-    std::vector<double> simResult(0.0, numPath);
+    std::vector<double> simResult(numPath, 0.0);
 
     /* Price and standard error */
-    std::pair<double> result;
+    std::pair<double, double> result;
 
     /* Random Number Generator */
     std::mt19937_64 gen;
@@ -31,12 +31,9 @@ std::pair<double> mcPrice(unsigned int numPath) {
     std::random_device rd;
     gen.seed(rd());
 
-    /* Initialize path */
-    std::vector<double> spot;
-    std::vector<double drift;
+    /* Initialize drift */
+    std::vector<double> drift;
     for (int i = 0; i < mMktVar.size(); ++i) {
-        spot.push_back(mMktVar[i].getSpot());
-
         /* Applying Ito correction to drift */
         drift.push_back(mMktVar[i].getRate() \
             - 0.5 * mMktVar[i].getVol() * mMktVar[i].getVol());
@@ -48,9 +45,14 @@ std::pair<double> mcPrice(unsigned int numPath) {
 
     /* Simulation */
     for (int i = 0; i < numPath; ++i) {
+        /* Initialize spot */
+        std::vector<double> spot;
+        for (int n = 0; n < mMktVar.size(); ++n) {
+            spot.push_back(mMktVar[n].getSpot());
+        }
         /* not autocalled at initial point */
         mPayoff -> setAutoCall(false);
-        for (int j = 0; j < mACSchedule.size(); ++i) {
+        for (int j = 0; j < mACSchedule.size(); ++j) {
 
             /* if autoacalled, terminate creating path */
             if ((mPayoff -> getAutoCall()) == true) {
@@ -68,6 +70,7 @@ std::pair<double> mcPrice(unsigned int numPath) {
             for (int k = 0; k < mNumAsset; ++k) {
                 diffusion.push_back(engine(gen));
             }
+
             diffusion = cholCov * diffusion;
 
             /* Calculate spot price */
@@ -85,4 +88,8 @@ std::pair<double> mcPrice(unsigned int numPath) {
     result.second = stdev(simResult) / sqrt(numPath);
 
     return result;
+}
+
+void MAAutoCall::setMCDiscount(double rate) {
+    mPayoff -> setDiscountRate(rate);
 }
