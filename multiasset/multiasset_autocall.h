@@ -1,5 +1,5 @@
 #ifndef _MULTIASSET_AUTOCALL_H_
-#define _MUITLASSET_AUTOCALL_H_
+#define _MULTIASSET_AUTOCALL_H_
 #include "multiasset_derivative.h"
 #include "multiasset_autocall_payoff.h"
 #include <vector>
@@ -7,12 +7,16 @@
 
 class MAAutoCall: public MADerivative {
 public:
+    /* Constructors and destructor */
     MAAutoCall();
     MAAutoCall(double maturity, double trigger, std::vector<double> ACSchedule,
         unsigned int numAsset);
     virtual ~MAAutoCall();
 
-    std::pair<double> mcPrice(unsigned int numPath);
+    std::pair<double, double> mcPrice(unsigned int numPath);
+
+    /* set MC discount rate */
+    void setMCDiscount(double rate);
 protected:
     double mTrigger;
     std::vector<double> mACSchedule;
