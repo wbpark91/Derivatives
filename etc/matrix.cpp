@@ -231,7 +231,7 @@ std::vector<T> Matrix<T>::operator*(const std::vector<T>& rhs) {
 
   for (unsigned i=0; i<rows; i++) {
     for (unsigned j=0; j<cols; j++) {
-      result[i] = this->mat[i][j] * rhs[j];
+      result[i] += this->mat[i][j] * rhs[j];
     }
   }
 
