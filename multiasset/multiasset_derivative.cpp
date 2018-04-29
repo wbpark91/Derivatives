@@ -23,7 +23,7 @@ void MADerivative::addMarketVariable(MarketVariable mktVar) {
     mMktVar.push_back(mktVar);
 
     /* Fill covariance matrix */
-    mCov(numAsset, numAsset) = (mktVar.getVol()) * (mktVar.getVol());
+    mCov(mCurrentAsset, mCurrentAsset) = (mktVar.getVol()) * (mktVar.getVol());
     mCurrentAsset++;
 }
 
