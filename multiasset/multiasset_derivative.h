@@ -1,10 +1,10 @@
 #ifndef _MULTIASSET_DERIVATIVE_H_
 #define _MULTIASSET_DERIVATIVE_H_
 #include <vector>
-#include "martix.h"
+#include "matrix.h"
 #include "marketvariable.h"
 
-enum DerivativeFeature { EUROPEAN, AMERICAN, CONTBARRIER, DISCBARRIER
+enum DerivativeFeature { EUROPEAN, AMERICAN, CONTBARRIER, DISCBARRIER,
     AUTOCALL, CALLABLE };
 
 /* MultiAssetDerivative class */
@@ -23,7 +23,7 @@ public:
 protected:
     std::vector<MarketVariable> mMktVar;
     double mMaturity;
-    Matrix mCov;
+    Matrix<double> mCov;
 
     DerivativeFeature mFeature;
     unsigned int mNumAsset;
