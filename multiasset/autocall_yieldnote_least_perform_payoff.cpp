@@ -20,6 +20,14 @@ double ACYNLeastPerformPayoff::operator()(std::vector<double> spot, double t) {
         exit(1);
     }
 
+    /* to find autocall position */
+    std::vector<double>::iterator it;
+
+    /* Autocall index */
+    int idx;
+    it = std::find(mACSchedule.begin(), mACSchedule.end(), t);
+    idx = std::distance(mACSchedule.begin(), it);
+
     /* If maturity */
     if (t == mMaturity) {
         /* If not autocall */
@@ -36,6 +44,7 @@ double ACYNLeastPerformPayoff::operator()(std::vector<double> spot, double t) {
 
         }
         else {
+            addAutoCallCount(idx);
             return exp(-mDiscountRate * t) * (mPrincipal + mCoupon * t * mFreq);
         }
     }
@@ -46,7 +55,8 @@ double ACYNLeastPerformPayoff::operator()(std::vector<double> spot, double t) {
             return 0;
         }
     else {                                      /* If autocall */
+        addAutoCallCount(idx);
         setAutoCall(true);
-        return exp(-mDiscountRate * t) * (mPrincipal + mCoupon * t / mFreq);
+        return exp(-mDiscountRate * t) * (mPrincipal + mCoupon * t * mFreq);
     }
 }
