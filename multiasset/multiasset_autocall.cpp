@@ -86,16 +86,6 @@ std::pair< std::vector<double>, std::vector<int> > MAAutoCall::mcPrice(unsigned 
         }
     }
 
-    // /* Get autocall information */
-    // std::vector<int> ACCount = mPayoff -> getACCount();
-    //
-    // /* Print autocall information */
-    // std::cout << "======Autocall probabilities======" << std::endl;
-    // for (int i = 0; i < ACCount.size(); ++i) {
-    //     std::cout << "Autocall at " << mACSchedule[i] << ": ";
-    //     std::cout << ((double)(ACCount[i]) / numPath) << std::endl;
-    // }
-
     /* calculate value and standard deviation */
     result.first.push_back(mean(simResult));
     result.first.push_back(stdev(simResult) / sqrt(numPath));
