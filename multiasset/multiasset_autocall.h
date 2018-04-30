@@ -13,7 +13,7 @@ public:
         unsigned int numAsset);
     virtual ~MAAutoCall();
 
-    std::pair<double, double> mcPrice(unsigned int numPath);
+    std::pair< std::vector<double>, std::vector<int> > mcPrice(unsigned int numPath);
 
     /* set MC discount rate */
     void setMCDiscount(double rate);

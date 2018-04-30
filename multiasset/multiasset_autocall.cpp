@@ -18,12 +18,12 @@ MAAutoCall::~MAAutoCall() {
     delete mPayoff;
 }
 
-std::pair<double, double> MAAutoCall::mcPrice(unsigned int numPath) {
+std::pair< std::vector<double>, std::vector<int> > MAAutoCall::mcPrice(unsigned int numPath) {
     /* Simulation result vector */
     std::vector<double> simResult(numPath, 0.0);
 
-    /* Price and standard error */
-    std::pair<double, double> result;
+    /* Price, standard error and autocall information */
+    std::pair< std::vector<double>, std::vector<int> > result;
 
     /* Random Number Generator */
     std::mt19937_64 gen;
@@ -39,6 +39,9 @@ std::pair<double, double> MAAutoCall::mcPrice(unsigned int numPath) {
             - 0.5 * mMktVar[i].getVol() * mMktVar[i].getVol());
     }
     double dt;
+
+    /* Initialize autocall count */
+    mPayoff -> initAutoCallCount();
 
     /* Cholesky Decomposition */
     Matrix<double> cholCov = cholDcomp(mCov);
@@ -83,9 +86,20 @@ std::pair<double, double> MAAutoCall::mcPrice(unsigned int numPath) {
         }
     }
 
+    // /* Get autocall information */
+    // std::vector<int> ACCount = mPayoff -> getACCount();
+    //
+    // /* Print autocall information */
+    // std::cout << "======Autocall probabilities======" << std::endl;
+    // for (int i = 0; i < ACCount.size(); ++i) {
+    //     std::cout << "Autocall at " << mACSchedule[i] << ": ";
+    //     std::cout << ((double)(ACCount[i]) / numPath) << std::endl;
+    // }
+
     /* calculate value and standard deviation */
-    result.first = mean(simResult);
-    result.second = stdev(simResult) / sqrt(numPath);
+    result.first.push_back(mean(simResult));
+    result.first.push_back(stdev(simResult) / sqrt(numPath));
+    result.second = (mPayoff -> getACCount());
 
     return result;
 }
